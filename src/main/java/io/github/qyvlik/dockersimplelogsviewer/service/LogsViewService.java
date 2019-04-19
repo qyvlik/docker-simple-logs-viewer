@@ -32,7 +32,7 @@ public class LogsViewService {
     }
 
     @RpcMethod(group = Constant.GROUP, value = "docker.logs")
-    public List<LogRow> dockerLogs(Integer tail, String containerId, String filter) {
+    public List<LogRow> dockerLogs(String containerId, Integer tail, String filter) {
         FrameReaderCallback frameReaderCallback = new FrameReaderCallback();
         frameReaderCallback.filter = filter;
         try {

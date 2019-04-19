@@ -21,17 +21,26 @@ ApplicationWindow {
         }
     }
 
+    background: Rectangle {color:"black"}
 
     ColumnLayout {
-
         anchors.fill: parent
         anchors.margins: 10
+
+        spacing: 5
 
         ListView {
             id: listView
             Layout.fillWidth: true
             Layout.fillHeight:  true
             clip: true
+
+            //            onCountChanged: {
+            //                var newIndex = count - 1 // last index
+            //                positionViewAtEnd()
+            //                currentIndex = newIndex
+            //            }
+
             model: ListModel {
                 id: logsModel
             }
@@ -43,9 +52,12 @@ ApplicationWindow {
                 width: listView.width
                 height: logRowText.contentHeight
 
+                color: "black"
+
                 TextEdit {
                     id: logRowText
                     text: content
+                    color: "green"
                     selectByKeyboard: true
                     selectByMouse: true
                     readOnly: true
@@ -95,8 +107,8 @@ ApplicationWindow {
                 text: "search"
                 Layout.fillWidth: true
                 onClicked: {
-                    dockerLogs(limitInput.text,
-                               containerComboBox.currentText,
+                    dockerLogs(containerComboBox.currentText,
+                               limitInput.text,
                                filterInput.text,
                                cb.forDockerLogs)
                 }
@@ -108,12 +120,15 @@ ApplicationWindow {
                 onClicked: logsModel.clear()
             }
 
-
             Button {
                 text: "sub"
                 Layout.fillWidth: true
                 onClicked: {
-                    subLiveDockerLogs(containerComboBox.currentText, limitInput.text, filterInput.text, true, cb.forSubLiveDockerLogs);
+                    subLiveDockerLogs(containerComboBox.currentText,
+                                      limitInput.text,
+                                      filterInput.text,
+                                      true,
+                                      cb.forSubLiveDockerLogs);
                 }
             }
         }
@@ -138,7 +153,7 @@ ApplicationWindow {
         }
 
         function forSubLiveDockerLogs(res) {
-            console.log(JSON.stringify(res));
+            //            console.log(JSON.stringify(res));
             if (res.result === 'subscribe' || res.result === 'unsubscribe') {
                 return;
             }
@@ -149,8 +164,8 @@ ApplicationWindow {
         }
     }
 
-    function dockerLogs( tail, containerId, filter, callback) {
-        var params = [tail, containerId, filter];
+    function dockerLogs( containerId, tail, filter, callback) {
+        var params = [containerId, tail, filter];
         rpcClient.callRpcMethod("docker.logs", params, callback);
     }
 
@@ -158,7 +173,6 @@ ApplicationWindow {
         var params = [];
         rpcClient.callRpcMethod("docker.container.list", params, callback);
     }
-
 
     function subLiveDockerLogs(containerId, tail, filter, subscribe, callback) {
         var params = [containerId, tail, filter];
