@@ -1,0 +1,4 @@
+*
+!target/*jar
+!Dockerfile
+!README.md

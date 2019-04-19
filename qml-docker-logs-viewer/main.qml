@@ -6,10 +6,10 @@ import QtWebSockets 1.0
 
 ApplicationWindow {
     id: window
-    width: 680
-    height: 480
+    width: 1280
+    height: 680
     visible: true
-    title: qsTr("dapp-bet")
+    title: qsTr("docker-simple-logs-view")
 
     header: ToolBar {
         RowLayout {
@@ -26,9 +26,7 @@ ApplicationWindow {
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: 10
-
         spacing: 5
-
         ListView {
             id: listView
             Layout.fillWidth: true
@@ -65,14 +63,14 @@ ApplicationWindow {
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                 }
 
-                Rectangle {
-                    height: 1
-                    anchors.bottom: parent.bottom
-                    anchors.right: parent.right
-                    anchors.left: parent.left
-                    color: "#ccc"
-                    opacity: 0.5
-                }
+//                Rectangle {
+//                    height: 1
+//                    anchors.bottom: parent.bottom
+//                    anchors.right: parent.right
+//                    anchors.left: parent.left
+//                    color: "#ccc"
+//                    opacity: 0.5
+//                }
 
             }
         }
