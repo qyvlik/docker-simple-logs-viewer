@@ -21,7 +21,9 @@ ApplicationWindow {
         }
     }
 
-    background: Rectangle {color:"black"}
+    background: Rectangle {
+        color:"black"
+    }
 
     ColumnLayout {
         anchors.fill: parent

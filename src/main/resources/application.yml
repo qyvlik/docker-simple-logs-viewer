@@ -3,3 +3,18 @@
 server:
   port: 19102
 
+docker:
+  client:
+    docker:
+      host: unix:///var/run/docker.sock
+      tlsVerify: false
+      certPath:
+      config:
+    api:
+      version: 1.37
+    registry:
+      url: https://index.docker.io/v1/
+      username:
+      password:
+      email:
+
