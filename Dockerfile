@@ -1,4 +1,10 @@
 
+FROM maven:alpine as builder
+COPY pom.xml pom.xml
+COPY src/ src/
+VOLUME /var/maven/.m2
+RUN mvn -DskipTests clean package
+
 FROM frolvlad/alpine-java
 
 MAINTAINER "qyvlik <qyvlik@qq.com>"
