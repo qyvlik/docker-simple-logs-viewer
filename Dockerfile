@@ -12,7 +12,7 @@ ADD target/*.jar /home/www/app.jar
 RUN adduser -D -u 1000 www www \
     && chown www:www -R /home/www
 
-EXPOSE 8080
+EXPOSE 19102
 
 USER www
 
