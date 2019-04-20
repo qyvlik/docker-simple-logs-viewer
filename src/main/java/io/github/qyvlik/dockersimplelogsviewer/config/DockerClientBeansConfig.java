@@ -23,20 +23,20 @@ public class DockerClientBeansConfig {
     @Value("${docker.client.docker.config}")
     private String dockerConfigPath;
 
-    @Value("${docker.client.docker.api.version}")
-    private String dockerApiVersion;
+    @Value("${docker.client.api.version}")
+    private String apiVersion;
 
-    @Value("${docker.client.docker.registry.url}")
-    private String dockerRegistryUrl;
+    @Value("${docker.client.registry.url}")
+    private String registryUrl;
 
-    @Value("${docker.client.docker.registry.username}")
-    private String dockerRegistryUsername;
+    @Value("${docker.client.registry.username}")
+    private String registryUsername;
 
-    @Value("${docker.client.docker.registry.password}")
-    private String dockerRegistryPassword;
+    @Value("${docker.client.registry.password}")
+    private String registryPassword;
 
-    @Value("${docker.client.docker.registry.email}")
-    private String dockerRegistryEmail;
+    @Value("${docker.client.registry.email}")
+    private String registryEmail;
 
     @Bean("dockerClient")
     public DockerClient dockerClient() {
@@ -45,11 +45,11 @@ public class DockerClientBeansConfig {
                 .withDockerTlsVerify(dockerTlsVerify)
                 .withDockerCertPath(dockerCertPath)
                 .withDockerConfig(dockerConfigPath)
-                .withApiVersion(dockerApiVersion)
-                .withRegistryUrl(dockerRegistryUrl)
-                .withRegistryUsername(dockerRegistryUsername)
-                .withRegistryPassword(dockerRegistryPassword)
-                .withRegistryEmail(dockerRegistryEmail)
+                .withApiVersion(apiVersion)
+                .withRegistryUrl(registryUrl)
+                .withRegistryUsername(registryUsername)
+                .withRegistryPassword(registryPassword)
+                .withRegistryEmail(registryEmail)
                 .build();
         return DockerClientBuilder.getInstance(config).build();
     }
