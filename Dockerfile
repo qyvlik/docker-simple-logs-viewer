@@ -13,7 +13,7 @@ VOLUME /tmp
 
 WORKDIR /home/www
 
-ADD target/*.jar /home/www/app.jar
+COPY --from=builder target/*.jar app.jar
 
 RUN adduser -D -u 1000 www www \
     && chown www:www -R /home/www
