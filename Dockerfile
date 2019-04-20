@@ -15,12 +15,7 @@ WORKDIR /home/www
 
 COPY --from=builder target/*.jar app.jar
 
-RUN adduser -D -u 1000 www www \
-    && chown www:www -R /home/www
-
 EXPOSE 19102
-
-USER www
 
 ENV JAVA_OPTS=""
 
