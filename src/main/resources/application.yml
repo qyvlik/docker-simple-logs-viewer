@@ -18,3 +18,9 @@ docker:
       password:
       email:
 
+
+logging:
+  level:
+    com: debug
+
+# curl --unix-socket /var/run/docker.sock http://localhost/v1.37/containers/json?all=true

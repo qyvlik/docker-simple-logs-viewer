@@ -4,6 +4,7 @@ import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.core.DefaultDockerClientConfig;
 import com.github.dockerjava.core.DockerClientBuilder;
 import com.github.dockerjava.core.DockerClientConfig;
+import com.github.dockerjava.jaxrs.JerseyDockerCmdExecFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,6 +52,12 @@ public class DockerClientBeansConfig {
                 .withRegistryPassword(registryPassword)
                 .withRegistryEmail(registryEmail)
                 .build();
-        return DockerClientBuilder.getInstance(config).build();
+
+        JerseyDockerCmdExecFactory cmdExecFactory =
+                (JerseyDockerCmdExecFactory) DockerClientBuilder.getDefaultDockerCmdExecFactory();
+        cmdExecFactory.withReadTimeout(1000);
+        cmdExecFactory.withConnectTimeout(1000);
+
+        return DockerClientBuilder.getInstance(config).withDockerCmdExecFactory(cmdExecFactory).build();
     }
 }
