@@ -15,7 +15,7 @@ ApplicationWindow {
         RowLayout {
             anchors.fill: parent
             ToolButton {
-                text: rpcClient.active ? "now is open" : "now is close"
+                text: rpcClient.status === WebSocket.Open ? "now is open" : "now is close"
                 onClicked: rpcClient.active = !rpcClient.active
             }
         }
@@ -137,6 +137,11 @@ ApplicationWindow {
     QtObject {
         id: cb
         function forDockerLogs(res) {
+            if (res.error) {
+                console.log("dockerLogs:", res.error);
+                return;
+            }
+
             var list = res.result;
             for(var it in list) {
                 logsModel.append(list[it]);
@@ -181,11 +186,16 @@ ApplicationWindow {
 
     RpcClient {
         id: rpcClient
-        url: "ws://localhost:19102/log-view"
+         url: "ws://localhost:19102/log-view"
+//        url: "ws://192.168.5.100:19102/log-view"
         onStatusChanged: {
             if(rpcClient.status === WebSocket.Open) {
                 dockerContainerList(cb.forDockerContainerList);
             }
+        }
+
+        onErrorStringChanged: {
+            console.log("error:", errorString)
         }
     }
 

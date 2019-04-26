@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  logs-viewer:
+    privileged: true
+    image: logs-view
+    ports:
+      - "8000:8000"
+      - "19102:19102"
+    volumes:
+#      - /etc/localtime:/etc/localtime:ro
+#      - /etc/timezone:/etc/timezone:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./application.yml:/home/www/application.yml:ro
