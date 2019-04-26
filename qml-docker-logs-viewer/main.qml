@@ -14,9 +14,19 @@ ApplicationWindow {
     header: ToolBar {
         RowLayout {
             anchors.fill: parent
-            ToolButton {
+            Button {
                 text: rpcClient.status === WebSocket.Open ? "now is open" : "now is close"
                 onClicked: rpcClient.active = !rpcClient.active
+            }
+
+            Label {
+                Layout.fillWidth: true
+                text: containerComboBox.currentText
+            }
+
+            Button {
+                text: "clear"
+                onClicked: logsModel.clear()
             }
         }
     }
@@ -50,10 +60,8 @@ ApplicationWindow {
             delegate: Rectangle {
                 id: logRow
                 width: listView.width
-                height: logRowText.contentHeight
-
+                height: logRowText.contentHeight * 0.9
                 color: "black"
-
                 TextEdit {
                     id: logRowText
                     text: content
@@ -64,16 +72,6 @@ ApplicationWindow {
                     width: listView.width
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                 }
-
-//                Rectangle {
-//                    height: 1
-//                    anchors.bottom: parent.bottom
-//                    anchors.right: parent.right
-//                    anchors.left: parent.left
-//                    color: "#ccc"
-//                    opacity: 0.5
-//                }
-
             }
         }
 
@@ -112,12 +110,6 @@ ApplicationWindow {
                                filterInput.text,
                                cb.forDockerLogs)
                 }
-            }
-
-            Button {
-                text: "clear"
-                Layout.fillWidth: true
-                onClicked: logsModel.clear()
             }
 
             Button {
@@ -186,8 +178,8 @@ ApplicationWindow {
 
     RpcClient {
         id: rpcClient
-         url: "ws://localhost:19102/log-view"
-//        url: "ws://192.168.5.100:19102/log-view"
+//         url: "ws://localhost:19102/log-view"
+        url: "ws://192.168.5.100:19102/log-view"
         onStatusChanged: {
             if(rpcClient.status === WebSocket.Open) {
                 dockerContainerList(cb.forDockerContainerList);
